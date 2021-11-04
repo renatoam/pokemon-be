@@ -1,0 +1,36 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model kanto {
+  mongoId        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  /// Multiple data types found: Double: 50.3%, Int32: 49.7% out of 1000 sampled entries
+  id             Int
+  avg_spawns     Float
+  candy          String
+  candy_count    Int?
+  egg            String
+  height         String
+  img            String
+  multipliers    Float[]
+  name           String
+  next_evolution Json[]
+  num            String
+  prev_evolution Json[]
+  /// Multiple data types found: Double: 96%, Int32: 4% out of 1000 sampled entries
+  spawn_chance   Float
+  spawn_time     String
+  type           String[]
+  weaknesses     String[]
+  weight         String
+}
+
+model pokemons {
+  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+}
