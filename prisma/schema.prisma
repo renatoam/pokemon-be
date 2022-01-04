@@ -1,36 +1,84 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model kanto {
-  mongoId        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  /// Multiple data types found: Double: 50.3%, Int32: 49.7% out of 1000 sampled entries
-  id             Int
-  avg_spawns     Float
-  candy          String
-  candy_count    Int?
-  egg            String
-  height         String
-  img            String
-  multipliers    Float[]
-  name           String
-  next_evolution Json[]
-  num            String
-  prev_evolution Json[]
-  /// Multiple data types found: Double: 96%, Int32: 4% out of 1000 sampled entries
-  spawn_chance   Float
-  spawn_time     String
-  type           String[]
-  weaknesses     String[]
-  weight         String
+model Pokemon {
+  id                    Int      @id @default(autoincrement())
+  name                  String
+  height                Int
+  weight                Int
+  squadSlot             Int
+  // esse typesRelation não aparece no resultado da query, ele existe apenas pra estabelecer o relacionamento
+  typesRelation         Types     @relation(fields: [types], references: [id])
+  types                 Int
+  movesRelation         Moves     @relation(fields: [moves], references: [id])
+  moves                 Int
+  spritesRelation       Sprites   @relation(fields: [sprites], references: [id])
+  sprites               Int
+  abilitiesRelation     Abilities  @relation(fields: [abilities], references: [id])
+  abilities             Int
+  prevEvolutionRelation Pokemon? @relation("Evolution", fields: [prevEvolution], references: [id])
+  prevEvolution         Int?     @unique
+  nextEvolutionRelation Pokemon? @relation("Evolution")
+  nextEvolution         Int?
+  trainer Trainer?
+  pokemons Pokemons[]
 }
 
-model pokemons {
-  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+model Pokemons {
+  id Int @id @default(autoincrement())
+  pokemons Pokemon[]
+  squad Squad?
+}
+
+model Types {
+  id Int @id @default(autoincrement())
+  types String[]
+  pokemon Pokemon[]
+}
+
+model Moves {
+  id Int @id @default(autoincrement())
+  moves String[]
+  pokemon Pokemon[]
+}
+
+model Sprites {
+  id Int @id @default(autoincrement())
+  sprites String[]
+  pokemon Pokemon[]
+}
+
+model Abilities {
+  id Int @id @default(autoincrement())
+  abilities String[]
+  pokemon Pokemon[]
+}
+
+model Trainer {
+  id Int @id @default(autoincrement())
+  name String
+  age Int?
+  gender String?
+  password String
+  email String @unique
+  nickname String
+  avatar String?
+  favoriteRel Pokemon @relation(fields: [favorite], references: [id])
+  favorite Int @unique
+  squad Squad?
+}
+
+model Squad {
+  id Int @id @default(autoincrement())
+  pokemonsRel Pokemons @relation(fields: [pokemons], references: [id])
+  pokemons Int @unique
+  trainerRel Trainer @relation(fields: [trainer], references: [id])
+  trainer Int @unique
 }

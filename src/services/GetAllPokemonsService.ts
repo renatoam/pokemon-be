@@ -1,8 +1,8 @@
-import prismaClient from '../prisma';
+import prisma from '../prisma';
 
 class GetAllPokemonsService {
   async execute(limit: number) {
-    const pokemons = await prismaClient.kanto.findMany({
+    const pokemons = await prisma.kanto.findMany({
       take: limit,
     });
 
