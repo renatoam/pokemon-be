@@ -1,6 +1,6 @@
 {
-  "name": "pokedex",
-  "version": "1.0.0",
+  "name": "pokedex-api",
+  "version": "0.0.1",
   "description": "Pokedex's back-end implementation",
   "main": "index.ts",
   "author": "Renato Melo",
