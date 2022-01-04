@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { Request, response, Response, Router } from 'express';
 
 import { GetAllPokemonsController } from './controllers/GetAllPokemonsController';
 import { mysqlConnection } from './mysql';
@@ -6,6 +6,10 @@ import { mysqlConnection } from './mysql';
 const router = Router();
 
 // router.get('/pokemons', new GetAllPokemonsController().handle);
+router.get('/', () => {
+  response.status(200).send('Please, go to /users to test this API =]')
+})
+
 router.get('/users', (request: Request, response: Response) => {
   mysqlConnection.query('SELECT * FROM users', (err: any, rows: any, fields: any) => {
     if (err) throw err
