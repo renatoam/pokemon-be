@@ -1,17 +1,19 @@
-import { Request, response, Response, Router } from 'express';
+import { Router } from 'express';
+import { AuthenticateController } from './controllers/AuthenticateController';
 
 import { GetAllPokemonsController } from './controllers/GetAllPokemonsController';
+import { GetTrainerController } from './controllers/GetTrainerController';
+import { GetTrainersController } from './controllers/GetTrainersController';
+import { SignUpController } from './controllers/SignUpController';
 
 const router = Router();
 
-// router.get('/pokemons', new GetAllPokemonsController().handle);
-router.get('/', () => {
+router.post('/authenticate', new AuthenticateController().handle)
+router.post('/signup', new SignUpController().handle)
+router.post('/signin', new SignUpController().handle)
 
-  response.status(200).send('Please, go to /users to test this API =]')
-})
-
-router.get('/users', (request: Request, response: Response) => {
-  response.status(200).send({ message: 'user data should be here' })
-})
+router.get('/pokemons', new GetAllPokemonsController().handle);
+router.get('/trainers', new GetTrainersController().handle);
+router.get('/trainer/:id', new GetTrainerController().handle)
 
 export default router;
