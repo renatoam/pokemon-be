@@ -21,3 +21,12 @@ export type PokemonType = {
   prev_evolution?: EvolutionType[];
   next_evolution?: EvolutionType[];
 };
+
+export type TrainerType = {
+  id: string,
+  name: string,
+  email: string,
+  password: string,
+  avatar?: string,
+  favoriteId?: number,
+}
