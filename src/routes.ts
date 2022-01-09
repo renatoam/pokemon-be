@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { AuthenticateController } from './controllers/AuthenticateController';
 
 import { GetAllPokemonsController } from './controllers/GetAllPokemonsController';
@@ -8,6 +8,19 @@ import { SignUpController } from './controllers/SignUpController';
 import { GetPokemonController } from './controllers/GetPokemonController';
 
 const router = Router();
+
+router.get('/', (request: Request, response: Response) => {
+  console.log({ request })
+
+  return response.status(200).send(`
+    Olá, essa rota ainda não tem conteúdo. Você pode tentar: \n\
+
+    - Pokemon: /pokemon/:id \n\
+    - Pokemons: /pokemons \n\
+    - Trainer: /trainer/:id \n\
+    - Trainers: /trainers
+  `)
+})
 
 router.post('/authenticate', new AuthenticateController().handle)
 router.post('/signup', new SignUpController().handle)
