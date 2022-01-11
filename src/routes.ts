@@ -8,19 +8,30 @@ import { SignUpController } from './controllers/SignUpController';
 import { GetPokemonController } from './controllers/GetPokemonController';
 import { GetInitialsController } from './controllers/GetInitialsController';
 
+import mysql from 'mysql2'
+
+export const connection = mysql.createConnection(process.env.DATABASE_URL!)
+// export const connection = mysql.createConnection({
+//   host: process.env.DATABASE_HOST,
+//   user: process.env.DATABASE_USERNAME,
+//   password: process.env.DATABASE_PASSWORD,
+//   ssl: {
+//     rejectUnauthorized: true
+//   }
+// })
+
+connection.connect()
+
 const router = Router();
 
 router.get('/', (request: Request, response: Response) => {
-  console.log({ request })
+  connection.query('SELECT * FROM pokemon', function (err, rows, fields) {
+    if (err) throw err
 
-  return response.status(200).send(`
-    Olá, essa rota ainda não tem conteúdo. Você pode tentar: \n\
+    console.log({ err, rows });
 
-    - Pokemon: /pokemon/:id \n\
-    - Pokemons: /pokemons \n\
-    - Trainer: /trainer/:id \n\
-    - Trainers: /trainers
-  `)
+    return response.status(200).json({rows})
+  })
 })
 
 router.post('/authenticate', new AuthenticateController().handle)
