@@ -6,6 +6,7 @@ import { GetTrainerController } from './controllers/GetTrainerController';
 import { GetAllTrainersController } from './controllers/GetAllTrainersController';
 import { SignUpController } from './controllers/SignUpController';
 import { GetPokemonController } from './controllers/GetPokemonController';
+import { GetInitialsController } from './controllers/GetInitialsController';
 
 const router = Router();
 
@@ -29,6 +30,7 @@ router.post('/signin', new SignUpController().handle)
 router.get('/pokemons', new GetAllPokemonsController().handle);
 router.get('/pokemon/:id', new GetPokemonController().handle)
 router.get('/trainers', new GetAllTrainersController().handle);
-router.get('/trainer/:id', new GetTrainerController().handle)
+router.get('/trainer/:id', new GetTrainerController().handle);
+router.get('/initials', new GetInitialsController().handle)
 
 export default router;
