@@ -10,6 +10,7 @@ import { GetInitialsController } from './controllers/GetInitialsController';
 
 import mysql from 'mysql2'
 import { GetSquadController } from './controllers/GetSquadController';
+import { UpdatePokemonController } from './controllers/UpdatePokemonController';
 
 // export const connection = mysql.createConnection(process.env.DATABASE_URL!)
 // export const connection = mysql.createConnection({
@@ -45,5 +46,7 @@ router.get('/trainers', new GetAllTrainersController().handle);
 router.get('/trainer/:id', new GetTrainerController().handle);
 router.get('/initials', new GetInitialsController().handle);
 router.get('/squad/:id', new GetSquadController().handle);
+
+router.put('/pokemon/:id', new UpdatePokemonController().handle);
 
 export default router;
