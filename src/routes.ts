@@ -36,6 +36,10 @@ const router = Router();
 //   })
 // })
 
+router.get('/front', (request: Request, response: Response) => {
+  return response.sendFile('index.html', { root: __dirname })
+})
+
 router.post('/authenticate', new AuthenticateController().handle)
 router.post('/signup', new SignUpController().handle)
 router.post('/signin', new SignUpController().handle)
