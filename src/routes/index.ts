@@ -10,6 +10,7 @@ import mysql from 'mysql2'
 import { GetSquadController } from '../controllers/GetSquadController';
 import { pokemonRouter } from './pokemon.routes';
 import { allPokemonsRouter } from './allPokemons.routes';
+import { SignInController } from '../controllers/SignInController';
 
 // export const connection = mysql.createConnection(process.env.DATABASE_URL!)
 // export const connection = mysql.createConnection({
@@ -39,9 +40,11 @@ router.get('/front', (request: Request, response: Response) => {
   return response.sendFile('index.html', { root: __dirname })
 })
 
+// Excluir a Controller de authenticate e criar um repository
+// Chamar o repo no service e usar esse service em Sign Up e Sign In
 router.post('/authenticate', new AuthenticateController().handle)
 router.post('/signup', new SignUpController().handle)
-router.post('/signin', new SignUpController().handle)
+router.post('/signin', new SignInController().handle)
 
 router.use('/pokemon', pokemonRouter)
 router.use('/pokemons', allPokemonsRouter)
