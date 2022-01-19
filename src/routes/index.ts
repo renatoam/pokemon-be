@@ -8,7 +8,6 @@ import { GetInitialsController } from '../controllers/GetInitialsController';
 
 import mysql from 'mysql2'
 import { GetSquadController } from '../controllers/GetSquadController';
-import { UpdatePokemonController } from '../controllers/UpdatePokemonController';
 import { pokemonRouter } from './pokemon.routes';
 import { allPokemonsRouter } from './allPokemons.routes';
 
@@ -51,7 +50,5 @@ router.get('/trainers', new GetAllTrainersController().handle);
 router.get('/trainer/:id', new GetTrainerController().handle);
 router.get('/initials', new GetInitialsController().handle);
 router.get('/squad/:id', new GetSquadController().handle);
-
-router.put('/pokemon/:id', new UpdatePokemonController().handle);
 
 export default router;
