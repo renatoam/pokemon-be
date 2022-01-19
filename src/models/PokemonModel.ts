@@ -3,7 +3,7 @@ export interface PokemonModel {
   base_experience: number,
   weight: number,
   height: number,
-  speciesId: number,
-  identifier: number,
+  species_id: number | null,
+  identifier: string,
   id: number
 }

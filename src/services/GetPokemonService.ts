@@ -1,13 +1,15 @@
-import { PokemonModel } from "../models/PokemonModel";
-import prisma from "../prisma";
-import { Prisma } from "@prisma/client";
+import { GetPokemonRepository } from "../repositories/GetPokemonRepository";
+
+const getPokemonRepository = new GetPokemonRepository()
 
 export class GetPokemonService {
   async execute(id: number) {
-    return await prisma.pokemon.findUnique({
-      where: {
-        id
-      }
-    })
+    if (!id) return new Error('ID obrigatório!')
+
+    const pokemon = await getPokemonRepository.findbyId(id)
+
+    if (!pokemon) return new Error('ID inválido!')
+
+    return pokemon
   }
 }

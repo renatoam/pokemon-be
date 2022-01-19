@@ -9,9 +9,13 @@ export class GetPokemonController {
 
     if (!id) return response.status(400).json({ message: 'Por favor, informe um id!' })
 
-    const pokemonId = Number(id)
-    const pokemon = await getPokemonService.execute(pokemonId)
+    try {
+      const pokemonId = Number(id)
+      const pokemon = await getPokemonService.execute(pokemonId)
 
-    return response.status(200).json(pokemon)
+      return response.status(200).json(pokemon)
+    } catch (error) {
+      return response.status(400).json(error)
+    }
   }
 }
