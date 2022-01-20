@@ -1,17 +1,16 @@
+// import mysql from 'mysql2'
 import { Request, Response, Router } from 'express';
+
 import { AuthenticateController } from '../controllers/AuthenticateController';
-
 import { SignUpController } from '../controllers/SignUpController';
-import { GetInitialsController } from '../controllers/GetInitialsController';
+import { SignInController } from '../controllers/SignInController';
 
-import mysql from 'mysql2'
-import { GetSquadController } from '../controllers/GetSquadController';
 import { pokemonRouter } from './pokemon.routes';
 import { allPokemonsRouter } from './allPokemons.routes';
-import { SignInController } from '../controllers/SignInController';
 import { allTrainersRouter } from './allTrainers.routes';
 import { trainerRouter } from './trainer.routes';
 import { squadRouter } from './squad.routes';
+import { initialsRouter } from './initials.routes';
 
 // export const connection = mysql.createConnection(process.env.DATABASE_URL!)
 // export const connection = mysql.createConnection({
@@ -47,12 +46,12 @@ router.post('/authenticate', new AuthenticateController().handle)
 router.post('/signup', new SignUpController().handle)
 router.post('/signin', new SignInController().handle)
 
+router.use('/initials', initialsRouter);
 router.use('/pokemon', pokemonRouter)
 router.use('/pokemons', allPokemonsRouter)
 router.use('/trainer', trainerRouter);
 router.use('/trainers', allTrainersRouter);
 router.use('/squad', squadRouter);
 
-router.get('/initials', new GetInitialsController().handle);
 
 export default router;
