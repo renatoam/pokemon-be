@@ -1,7 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { AuthenticateController } from '../controllers/AuthenticateController';
 
-import { GetTrainerController } from '../controllers/GetTrainerController';
 import { SignUpController } from '../controllers/SignUpController';
 import { GetInitialsController } from '../controllers/GetInitialsController';
 
@@ -11,6 +10,7 @@ import { pokemonRouter } from './pokemon.routes';
 import { allPokemonsRouter } from './allPokemons.routes';
 import { SignInController } from '../controllers/SignInController';
 import { allTrainersRouter } from './allTrainers.routes';
+import { trainerRouter } from './trainer.routes';
 
 // export const connection = mysql.createConnection(process.env.DATABASE_URL!)
 // export const connection = mysql.createConnection({
@@ -48,9 +48,9 @@ router.post('/signin', new SignInController().handle)
 
 router.use('/pokemon', pokemonRouter)
 router.use('/pokemons', allPokemonsRouter)
+router.use('/trainer', trainerRouter);
 router.use('/trainers', allTrainersRouter);
 
-router.get('/trainer/:id', new GetTrainerController().handle);
 router.get('/initials', new GetInitialsController().handle);
 router.get('/squad/:id', new GetSquadController().handle);
 
