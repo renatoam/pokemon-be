@@ -11,6 +11,7 @@ import { allPokemonsRouter } from './allPokemons.routes';
 import { SignInController } from '../controllers/SignInController';
 import { allTrainersRouter } from './allTrainers.routes';
 import { trainerRouter } from './trainer.routes';
+import { squadRouter } from './squad.routes';
 
 // export const connection = mysql.createConnection(process.env.DATABASE_URL!)
 // export const connection = mysql.createConnection({
@@ -50,8 +51,8 @@ router.use('/pokemon', pokemonRouter)
 router.use('/pokemons', allPokemonsRouter)
 router.use('/trainer', trainerRouter);
 router.use('/trainers', allTrainersRouter);
+router.use('/squad', squadRouter);
 
 router.get('/initials', new GetInitialsController().handle);
-router.get('/squad/:id', new GetSquadController().handle);
 
 export default router;
