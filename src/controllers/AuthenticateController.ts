@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { AuthenticateService } from "../services/AuthenticateService";
+import { SignInService } from "../services/SignInService";
 
-const authenticateService = new AuthenticateService()
+const authenticateService = new SignInService()
 
 export class AuthenticateController {
   async handle(request: Request, response: Response) {

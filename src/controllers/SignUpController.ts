@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AuthenticateService } from "../services/AuthenticateService";
+import { SignInService } from "../services/SignInService";
 import { TrainerType } from "../types";
 import bcrypt from 'bcrypt'
 import { SignUpService } from "../services/SignUpService";
@@ -9,7 +9,7 @@ import cookie from 'cookie'
 import { createHmac } from 'crypto';
 
 
-const authenticateService = new AuthenticateService()
+const authenticateService = new SignInService()
 const signUpService = new SignUpService()
 
 const minimumPasswordLength = 8
