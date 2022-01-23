@@ -1,8 +1,7 @@
-import { PokemonModel } from "../models/PokemonModel";
 import prisma from "../prisma";
 
 export class GetPokemonRepository {
-  async findbyId(id: number): Promise<PokemonModel | null> {
+  async findbyId(id: number) {
     return await prisma.pokemon.findUnique({
       where: {
         id

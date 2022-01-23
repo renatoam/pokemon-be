@@ -1,3 +1,5 @@
+import { StatsType } from "../types";
+
 export interface PokemonModel {
   order: number,
   base_experience: number,
@@ -5,5 +7,7 @@ export interface PokemonModel {
   height: number,
   species_id: number | null,
   identifier: string,
-  id: number
+  id: number,
+  stats: StatsType,
+  moves: number[]
 }

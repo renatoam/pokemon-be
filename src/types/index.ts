@@ -30,3 +30,11 @@ export type TrainerType = {
   avatar?: string,
   favoriteId?: number,
 }
+
+export type StatType = 'hp' | 'attack' | 'defense' | 'special_attack' | 'special_defense' | 'speed'
+
+export type StatsType = {
+  stat_id: number,
+  identifier: StatType,
+  base_stat: number
+}
