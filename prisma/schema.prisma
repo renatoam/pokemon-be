@@ -18,23 +18,25 @@ model moves {
   id            Int             @id
   identifier    String          @db.VarChar(79)
   type_id       Int
-  power         Int?
-  pp            Int?
-  accuracy      Int?
-  priority      Int
+  power         Int?            @db.SmallInt
+  pp            Int?            @db.SmallInt
+  accuracy      Int?            @db.SmallInt
+  priority      Int             @db.SmallInt
   types         types           @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   pokemon_moves pokemon_moves[]
 }
 
 model pokemon {
-  id                Int                 @id
-  identifier        String              @db.VarChar(79)
+  id                Int                    @id
+  identifier        String                 @db.VarChar(79)
   species_id        Int?
   height            Int
   weight            Int
   base_experience   Int
   order             Int
-  pokemon_species   pokemon_species?    @relation(fields: [species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  stats             Unsupported("hstore")?
+  moves             Int[]
+  pokemon_species   pokemon_species?       @relation(fields: [species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   pokemon_abilities pokemon_abilities[]
   pokemon_moves     pokemon_moves[]
   pokemon_stats     pokemon_stats[]
@@ -71,7 +73,7 @@ model pokemon_species {
   evolves_from_species_id Int?
   is_baby                 Boolean
   forms_switchable        Boolean
-  is_legendary            Boolean?
+  is_legendary            Boolean
   order                   Int
   pokemon_species         pokemon_species?  @relation("pokemon_speciesTopokemon_species_evolves_from_species_id", fields: [evolves_from_species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   pokemon                 pokemon[]
@@ -103,7 +105,8 @@ model squad {
   id            Int             @id
   identifier    String          @db.VarChar(79)
   is_complete   Boolean
-  trainer_id    Int
+  trainer_id    String          @db.Uuid
+  trainer       trainer         @relation(fields: [trainer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   squad_pokemon squad_pokemon[]
 }
 
@@ -126,13 +129,14 @@ model stats {
 }
 
 model trainer {
-  id          String   @id @db.Uuid
+  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name        String   @db.VarChar(79)
   email       String   @unique @db.VarChar(79)
-  password    String   @db.VarChar(255)
+  password    String   @db.VarChar(70)
   avatar      String?  @db.VarChar(255)
   favorite_id Int?
   pokemon     pokemon? @relation(fields: [favorite_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  squad       squad[]
 }
 
 model types {
