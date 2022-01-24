@@ -34,7 +34,5 @@ export type TrainerType = {
 export type StatType = 'hp' | 'attack' | 'defense' | 'special_attack' | 'special_defense' | 'speed'
 
 export type StatsType = {
-  stat_id: number,
-  identifier: StatType,
-  base_stat: number
-}
+  [key in StatType]: string;
+};

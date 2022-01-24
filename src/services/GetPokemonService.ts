@@ -1,20 +1,15 @@
 import { PokemonModel } from "../models/PokemonModel";
 import { GetPokemonRepository } from "../repositories/GetPokemonRepository";
-import { GetStatsRepository } from "../repositories/GetStatsRepository";
 
 const getPokemonRepository = new GetPokemonRepository()
-const getStatsRepository = new GetStatsRepository()
 
 export class GetPokemonService {
   async execute(id: number): Promise<PokemonModel | null> {
-    const pokemon = await getPokemonRepository.findbyId(id)    
-    const stats = await getStatsRepository.findById(id)
+    const pokemonResults = JSON.stringify(await getPokemonRepository.findbyId(id))
+    const pokemon = JSON.parse(pokemonResults)
 
-    if (!pokemon || !stats) return null
+    if (!pokemon.id) return null
 
-    return {
-      ...pokemon,
-      stats
-    }
+    return pokemon
   }
 }
