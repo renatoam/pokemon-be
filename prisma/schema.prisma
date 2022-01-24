@@ -27,16 +27,16 @@ model moves {
 }
 
 model pokemon {
-  id                Int                    @id
-  identifier        String                 @db.VarChar(79)
+  id                Int                 @id
+  identifier        String              @db.VarChar(79)
   species_id        Int?
   height            Int
   weight            Int
   base_experience   Int
   order             Int
-  stats             Unsupported("hstore")?
+  stats             Json?               @db.Json
   moves             Int[]
-  pokemon_species   pokemon_species?       @relation(fields: [species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  pokemon_species   pokemon_species?    @relation(fields: [species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   pokemon_abilities pokemon_abilities[]
   pokemon_moves     pokemon_moves[]
   pokemon_stats     pokemon_stats[]
